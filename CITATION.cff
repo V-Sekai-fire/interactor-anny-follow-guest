@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "interactor-anny-follow-guest"
+abstract: "The avatar follows the muscle skeleton: a SafeGDScript guest that poses ANNY's 104 bones from the body placements of MS-Human-700."
+type: software
+authors:
+  - family-names: "Lee"
+    given-names: "K. S. Ernest (iFire)"
+license: MIT
+repository-code: "https://github.com/V-Sekai-fire/interactor-anny-follow-guest"
+date-released: "2026-11-13"
