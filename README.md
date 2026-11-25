@@ -5,7 +5,7 @@ The avatar follows the muscle skeleton: a SafeGDScript guest that poses ANNY's 1
 ## What is here
 
 - `follow.sgd`: the mapping, as data plus arithmetic.
-- `data/drive.tsv`: which body of the muscle skeleton drives which bone, written by `tools/drive_table.exs`.
+- `data/drive.yamlld`: which body of the muscle skeleton drives which bone, canonical YAML-LD written by `tools/drive_table.exs`.
 - `proof/` and `tests/math_proof.gd`: what arithmetic a SafeGDScript guest has.
 - `tests/follow_gate.gd`, `tests/follow_rig.gd`, `tests/follow_movie.gd`: the gate against a reference, the apparatus, and the movie.
 - `docs/follow.md`: frames, the mapping, the calls and the controls.

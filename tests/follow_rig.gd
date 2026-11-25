@@ -78,20 +78,20 @@ func build(elf: String, glb: String, control: String) -> bool:
 		rest.append_array([g.origin.x, g.origin.y, g.origin.z, q.x, q.y, q.z, q.w])
 
 	var drive := PackedInt32Array()
-	var table := FileAccess.get_file_as_string("res://data/drive.tsv").split("\n", false)
-	for r in range(1, table.size()):
-		var f := table[r].split("\t", true)
+	var table: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/drive.yamlld"))["rows"]
+	for r in range(table.size()):
+		var f: Dictionary = table[r]
 		if f.size() != 6:
-			error = "drive.tsv row %d has %d fields" % [r, f.size()]
+			error = "drive.yamlld row %d has %d fields" % [r, f.size()]
 			return false
-		if not parts.has(f[1]):
-			parts.append(f[1])
-		var body: String = _swap_side(f[1]) if control == "swap" else f[1]
-		var row := [bones.find(f[0]), bodies.find(body), -1, -1, -1, -1]
-		if f[2] != "":
-			row = [row[0], row[1], bones.find(f[2]), bones.find(f[3]), bodies.find(f[4]), bodies.find(f[5])]
-		if row[0] < 0 or row[1] < 0 or (f[2] != "" and row.has(-1)):
-			error = "drive.tsv row %d names something unknown" % r
+		if not parts.has(f["mujoco_body"]):
+			parts.append(f["mujoco_body"])
+		var body: String = _swap_side(f["mujoco_body"]) if control == "swap" else f["mujoco_body"]
+		var row := [bones.find(f["anny_bone"]), bodies.find(body), -1, -1, -1, -1]
+		if f["anny_from"] != "":
+			row = [row[0], row[1], bones.find(f["anny_from"]), bones.find(f["anny_to"]), bodies.find(f["mujoco_from"]), bodies.find(f["mujoco_to"])]
+		if row[0] < 0 or row[1] < 0 or (f["anny_from"] != "" and row.has(-1)):
+			error = "drive.yamlld row %d names something unknown" % r
 			return false
 		drive.append_array(row)
 	rows = drive.size() / 6

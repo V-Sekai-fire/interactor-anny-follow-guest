@@ -56,14 +56,14 @@ position of the root bone). It returns an empty array before `setup`, or for a w
 
 ## The drive table
 
-`data/drive.tsv` has one row per driven bone: the bone, the body that drives it, and the four
+`data/drive.yamlld` is a canonical YAML-LD document (one line of RFC 8785 JSON, a `@list` of rows) with one row per driven bone: the bone, the body that drives it, and the four
 names of the alignment pair (empty for the three pelvis rows). `tools/drive_table.exs` writes it
 from the expanded table of the reference script:
 
-    elixir tools/drive_table.exs <drive_table.txt> data/drive.tsv
+    elixir tools/drive_table.exs <drive_table.txt> data/drive.yamlld
 
-The rows are grouped by driving body in the part order of the wire, so the order in which the
-body column first shows each name is that order (21 bodies, 64 rows). The apparatus reads the
+The rows are grouped by driving body by the body regions of `tools/drive_table.exs` (spine, left arm, right arm,
+left leg, right leg), which is not the wire order: the wire order is `data/parts.yamlld` of the packets guest (21 bodies, 64 rows). The apparatus reads the
 file, finds the indices and hands them to the guest. The table is in no other file.
 
 ## Which math the guest uses
@@ -120,7 +120,7 @@ global poses, and `get_bone_global_pose` returns the rest pose. The gate waits o
 fails if the skeleton is not in the tree.
 
 `tests/follow_rig.gd` is apparatus that the gate and the recorder share. It builds the muscle
-skeleton, loads the avatar, reads `data/drive.tsv` and sets up the follower.
+skeleton, loads the avatar, reads `data/drive.yamlld` and sets up the follower.
 
 ## The recording
 
